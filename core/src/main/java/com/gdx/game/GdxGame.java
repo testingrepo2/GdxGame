@@ -7,6 +7,7 @@ import com.gdx.game.manager.PreferenceManager;
 import com.gdx.game.manager.ResourceManager;
 import com.gdx.game.screen.GameScreen;
 import com.gdx.game.screen.MenuScreen;
+import com.gdx.game.screen.MinimapScreen;
 
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class GdxGame extends Game {
 		menuScreen = new MenuScreen(this, resourceManager);
 		gameScreen = new GameScreen(this, resourceManager);
 
-		this.setScreen(menuScreen);
+		this.setScreen(new MinimapScreen(this, resourceManager));
 	}
 
 	@Override

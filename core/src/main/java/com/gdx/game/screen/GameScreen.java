@@ -2,6 +2,7 @@ package com.gdx.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -29,6 +30,7 @@ public class GameScreen extends BaseScreen {
     private Island island;
     private Hero hero;
     private final String musicTheme = "music/Dwarves'_Theme.mp3";
+    private MinimapScreen minimapScreen;
 
     public GameScreen(GdxGame gdxGame, ResourceManager resourceManager) {
         super(gdxGame, resourceManager);
@@ -62,6 +64,7 @@ public class GameScreen extends BaseScreen {
         CameraManager cameraManager = new CameraManager();
         controlManager = cameraManager.insertControl(getGameCam());
         handleMusic();
+        minimapScreen = new MinimapScreen(gdxGame, resourceManager);
     }
 
     @Override
@@ -83,8 +86,10 @@ public class GameScreen extends BaseScreen {
 
         Collections.sort(island.getEntities());
 
-        drawGame();
+        drawGame(getGameCam());
         box2d.tick(getGameCam(), controlManager);
+
+        minimapScreen.render(delta);
 
         if(hero.isCollision() && hero.getEntityCollision().getType() == EntityEnums.ENTITYTYPE.ENEMY) {
             HashMap<String, Entity> entityMap = new HashMap<>();
@@ -102,8 +107,8 @@ public class GameScreen extends BaseScreen {
         }
     }
 
-    private void drawGame() {
-        gdxGame.getBatch().setProjectionMatrix(getGameCam().combined);
+    public void drawGame(OrthographicCamera orthographicCamera) {
+        gdxGame.getBatch().setProjectionMatrix(orthographicCamera.combined);
         gdxGame.getBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 
         gdxGame.getBatch().begin();
