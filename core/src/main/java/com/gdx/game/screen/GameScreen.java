@@ -49,6 +49,10 @@ public class GameScreen extends BaseScreen {
         box2d.populateEntityMap(island.getEntities());
     }
 
+    public Island getIsland() {
+        return island;
+    }
+
     private void handleMusic() {
         playMusic(musicTheme);
     }
