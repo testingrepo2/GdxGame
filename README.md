@@ -11,7 +11,7 @@ It is an RPG 2D base game.</p>
 The edition was made with Tiled.exe in order to build layers.
 </p>
 
-#### Entities
+#### Entities 
 - The hero is an animated 2D sprite. <br>
 The hero moves freely in the maps with the arrow keys or with "WASD". <br>
 The hero will soon be able to interact with NPCs with the "E" key.
